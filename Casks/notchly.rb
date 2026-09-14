@@ -13,13 +13,9 @@ cask "notchly" do
 
   app "Notchly.app"
 
-  # The build is unsigned / not notarized, so strip the quarantine flag Homebrew
-  # applies — otherwise Gatekeeper blocks the first launch and the user has to
-  # right-click → Open.
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{appdir}/Notchly.app"]
-  end
+  # NOTE: Notchly is unsigned / not notarized, so the first launch needs a
+  # right-click → Open (or System Settings → Privacy & Security → Open Anyway).
+  # This is the same one-time step as the direct download.
 
   uninstall quit: "com.notchly.Notchly"
 
